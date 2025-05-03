@@ -1,0 +1,168 @@
+% !TEX program = lualatex
+\documentclass[8pt,twocolumn]{article}
+
+% Essential packages
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+% Define a nice framed box for the abstract
+\definecolor{lightgray}{gray}{0.95}
+\newenvironment{abstractbox}{%
+  \begin{mdframed}[backgroundcolor=lightgray,
+                   linewidth=0.5pt,
+                   linecolor=black,
+                   topline=true,
+                   bottomline=true,
+                   leftline=true,
+                   rightline=true,
+                   innerleftmargin=10pt,
+                   innerrightmargin=10pt,
+                   innertopmargin=10pt,
+                   innerbottommargin=10pt]
+}{%
+  \end{mdframed}
+}
+
+% Essential packages
+\usepackage{fontspec}        % Font selection for LuaLaTeX
+\usepackage{amsmath,amssymb} % Math symbols and environments
+\usepackage{graphicx}        % For including images
+\usepackage{booktabs}        % For professional tables
+\usepackage{hyperref}        % For hyperlinks
+\usepackage{geometry}        % For page layout
+\usepackage{algorithm}       % For algorithms
+\usepackage{algpseudocode}   % For algorithm pseudocode
+\usepackage{natbib}          % For bibliography
+
+% Page layout
+\geometry{
+  paper=a4paper,
+  top=0.5cm,
+  bottom=0.5cm,
+  left=0.5cm,
+  right=0.5cm,
+}
+
+% Remove large paragraph indents
+\setlength{\parindent}{0pt}   % Remove paragraph indentation completely
+\setlength{\parskip}{0.1cm}   % Add some vertical space between paragraphs
+
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  Numbers=OldStyle
+]
+
+% Section styling
+\usepackage{titlesec}
+
+% Format section headings
+\titleformat{\section}
+  {\normalfont\large\bfseries}  % format
+  {\thesection}                 % label
+  {1em}                         % sep
+  {\MakeUppercase}              % before-code
+  []                            % after-code
+
+% Adjust spacing around sections
+\titlespacing*{\section}
+  {0pt}                         % left
+  {1.5ex plus .5ex minus .2ex}  % before
+  {1ex plus .2ex} 
+
+
+% Font settings - using TeX Gyre Termes (Times-like font) for maximum compatibility
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}[
+  Ligatures=TeX,
+  Numbers=OldStyle
+]
+
+% Bibliography settings
+\bibliographystyle{plainnat}
+
+% Hyperref settings
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+}
+
+% Title information
+\title{\textbf{Paper Title and Its Main Contribution}}
+\author{First Author and Second Author\\
+}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstractbox}
+\noindent\textbf{Abstract} \\
+Your abstract goes here. Variable selection is an important topic in linear regression analysis. In practice, a large number of predictors are introduced at the initial stage of modeling to enhance predictability and to avoid possible modeling biases. We propose a unified approach via penalized least squares. The penalty functions have to be singular at the origin to produce sparse solutions. Furthermore, the penalty function should be bounded by a constant to reduce bias.
+
+\vspace{0.5em}
+\noindent\textbf{KEY WORDS:} \ Hard thresholding; LASSO; Nonparametric curve; Penalized likelihood; Oracle estimator.
+\end{abstractbox}
+
+
+% 1. INTRODUCTION
+\section{INTRODUCTION}
+
+Variable selection is an important topic in linear regression analysis. In practice, a large number of predictors usually are introduced at the initial stage of modeling to enhance possible modeling biases. On the other hand, to enhance predictability and to avoid overfitting, statisticians usually use stepwise deletion and subset selection. The penalty functions have to be singular at the origin to produce sparse solutions. Furthermore, with proper choice of regularization parameters, we show that the proposed estimators perform as well as the oracle procedure in variable selection; namely, they work as well as if the correct submodel were known. Our simulation shows that the newly proposed penalized likelihood compare favorably with other variable selection techniques.
+
+% 2. METHODOLOGY
+\section{METHODOLOGY}
+
+The penalized least squares idea can be extended naturally to likelihood-based models in various statistical contexts. Our approaches are distinguished from traditional methods (usually quadratic penalty) in that the penalty functions are symmetric, convex on $(0, \infty)$ (rather than concave for the negative quadratic penalty in the penalized likelihood situation), and possess singularities at the origin.
+
+% Example of a mathematical equation
+\begin{equation}
+  \label{eq:example}
+  p_{\lambda}(|\beta_j|) = \lambda^2 - (|\beta_j| - \lambda)^2 I(|\beta_j| < \lambda)
+\end{equation}
+
+% Example of an algorithm
+\begin{algorithm}
+  \caption{SCAD Algorithm}
+  \label{alg:scad}
+  \begin{algorithmic}[1]
+    \State Initialize $\beta^{(0)} = $ least squares estimate
+    \For{$k = 0, 1, 2, \ldots$ until convergence}
+      \State Set weights $w_j = p'_{\lambda}(|\beta_j^{(k)}|)/|\beta_j^{(k)}|$
+      \State Minimize $\|Y - X\beta\|^2 + \sum_{j=1}^p w_j \beta_j^2$
+      \State Set $\beta^{(k+1)} = $ the minimizer
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+% 3. NUMERICAL STUDIES
+\section{NUMERICAL STUDIES}
+
+We conduct some simulations to compare the performance of different variable selection procedures. We demonstrate how the rates of convergence for the penalized likelihood estimators depend on the regularization parameter.
+
+% Example of a table
+\begin{table}[ht]
+  \centering
+  \caption{Median Relative Model Error}
+  \label{tab:example}
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    Method & Model 1 & Model 2 & Model 3 \\
+    \midrule
+    SCAD & 0.35 & 0.42 & 0.38 \\
+    LASSO & 0.60 & 0.58 & 0.59 \\
+    Hard & 0.82 & 0.71 & 0.73 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% 4. CONCLUSION
+\section{CONCLUSION}
+
+The penalized likelihood estimators perform as well as the oracle procedure in terms of selecting the correct submodel when the regularization parameter is appropriately chosen. In short, the proposed procedures outperform the maximum likelihood estimator and perform as well as the oracle. This is very analogous to the superefficiency phenomenon in the Hodges estimator.
+
+\bibliography{references}
+
+\end{document}

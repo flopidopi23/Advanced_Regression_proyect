@@ -1,0 +1,60 @@
+---
+title: "svm"
+output: pdf_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\section{Support Vector Regression(\textit{SVR})}
+
+\citet{vapnik1995nature} proposed the Support Vector Regression (SVR) framework by extending Support Vector Machine (SVM) to regression models. SVR constructs a regression function based on a subset of the data, known as support vectors. In its original form, Vapnik introduced the following representation:
+
+\begin{equation}
+F_2(x, \mathbf{w}) = \sum_{i=1}^{N} (\alpha_i^* - \alpha_i) (v_i^\top x + 1)^p + b
+\end{equation}
+
+Here, $\alpha_i$, $\alpha_i^*$ are Lagrange multipliers obtained from the dual optimization problem, $v_i$ represents the data samples, $p$ is the degree of the polynomial kernel, and the term $(v_i^\top x + 1)^p$ corresponds to the kernel function. This formula use a specific polinomial kernel.
+
+The SVR model can be more generalized replacing the polynomial kernel with any positive-definite kernel function $K(x_i, x)$, leading to the more flexible representation:
+
+\begin{equation}
+f(x) = \sum_{i=1}^{N} (\alpha_i^* - \alpha_i) K(x_i, x) + b
+\end{equation}
+
+This form allows SVR to capture complex, non-linear relationships in data. Commonly used kernels include the radial basis function, linear and sigmoid kernels, making SVR a powerful and adaptable tool for regression tasks involving non-linear data structures.
+
+\subsection{Loss Function and Hyperparameters}
+The loss function utilized in this model is the $\varepsilon$-insensitive loss function, first introduced by \citet{vapnik1995nature}. This loss function defines a tube of tolerance around the regression function, within which errors are not penalized. The idea is to focus on fitting the data while ignoring small deviations that are likely due to noise (just like the svm do to separed classes). The loss function $L_\varepsilon$ is defined as:
+
+\begin{equation}
+L_\varepsilon(y, f(x)) = 
+\begin{cases}
+0, & \text{if } |y - f(x)| \leq \varepsilon \\
+|y - f(x)| - \varepsilon, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+Only data points that lie outside the $\varepsilon$-tube contribute to the cost function, making the solution sparse in terms of support vectors \citep{smola1998tutorial}.
+
+The Hyperparameters that are involve in this model are three and they are use to control the flexibility and generalization of the model:
+
+\begin{itemize}
+    \item \textbf{Regularization parameter $C$}: This controls the bias-variance trade-off of the model. A high $C$ encourages the model to minimize errors at the risk of overfitting, while a small $C$ yields a smoother function that may tolerate larger errors.
+    \item \textbf{Epsilon $\varepsilon$}: Determines the width of the tube around the regression function where no penalty is applied. Larger values of $\varepsilon$ simplify the model by ignoring small deviations, while smaller values increase sensitivity to minor variations.
+    \item \textbf{Kernel function $K(x_i, x_j)$}: Enables SVR to perform non-linear regression by implicitly mapping the input data into a higher-dimensional feature space. Common kernel choices include:
+    \begin{itemize}
+        \item \textit{Linear}: $K(x_i, x_j) = x_i^\top x_j$
+        \item \textit{Polynomial}: $K(x_i, x_j) = (\gamma x_i^\top x_j + r)^d$
+        \item \textit{Radial Basis Function (RBF)}: $K(x_i, x_j) = \exp(-\gamma \|x_i - x_j\|^2)$
+        \item \textit{Sigmoid}: $K(x_i, x_j) = \tanh(\gamma x_i^\top x_j + r)$
+    \end{itemize}
+\end{itemize}
+
+As noted by \citet{hastie2009elements}, the choice and tuning of these hyperparameters are crucial for model performance and are selected through cross-validation techniques.
+
+
+
+

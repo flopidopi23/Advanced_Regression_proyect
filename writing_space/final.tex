@@ -112,10 +112,17 @@ Your abstract goes here. Variable selection is an important topic in linear regr
 
 Variable selection is an important topic in linear regression analysis. In practice, a large number of predictors usually are introduced at the initial stage of modeling to enhance possible modeling biases. On the other hand, to enhance predictability and to avoid overfitting, statisticians usually use stepwise deletion and subset selection. The penalty functions have to be singular at the origin to produce sparse solutions. Furthermore, with proper choice of regularization parameters, we show that the proposed estimators perform as well as the oracle procedure in variable selection; namely, they work as well as if the correct submodel were known. Our simulation shows that the newly proposed penalized likelihood compare favorably with other variable selection techniques.
 
-% 2. METHODOLOGY
-\section{METHODOLOGY}
+\subsection{Splines}
+
+\subsection{The Other BS}
+
+\section{Simulation Study}
 
 The penalized least squares idea can be extended naturally to likelihood-based models in various statistical contexts. Our approaches are distinguished from traditional methods (usually quadratic penalty) in that the penalty functions are symmetric, convex on $(0, \infty)$ (rather than concave for the negative quadratic penalty in the penalized likelihood situation), and possess singularities at the origin.
+i
+
+
+
 
 % Example of a mathematical equation
 \begin{equation}
@@ -136,11 +143,6 @@ The penalized least squares idea can be extended naturally to likelihood-based m
     \EndFor
   \end{algorithmic}
 \end{algorithm}
-
-% 3. NUMERICAL STUDIES
-\section{NUMERICAL STUDIES}
-
-We conduct some simulations to compare the performance of different variable selection procedures. We demonstrate how the rates of convergence for the penalized likelihood estimators depend on the regularization parameter.
 
 % Example of a table
 \begin{table}[ht]

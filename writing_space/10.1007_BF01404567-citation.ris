@@ -1,0 +1,17 @@
+TY  - JOUR
+AU  - Craven, Peter
+AU  - Wahba, Grace
+PY  - 1978
+DA  - 1978/12/01
+TI  - Smoothing noisy data with spline functions
+JO  - Numerische Mathematik
+SP  - 377
+EP  - 403
+VL  - 31
+IS  - 4
+AB  - Smoothing splines are well known to provide nice curves which smooth discrete, noisy data. We obtain a practical, effective method for estimating the optimum amount of smoothing from the data. Derivatives can be estimated from the data by differentiating the resulting (nearly) optimally smoothed spline.
+SN  - 0945-3245
+UR  - https://doi.org/10.1007/BF01404567
+DO  - 10.1007/BF01404567
+ID  - Craven1978
+ER  - 

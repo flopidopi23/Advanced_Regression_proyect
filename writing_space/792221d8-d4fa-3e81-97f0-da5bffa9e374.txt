@@ -1,0 +1,14 @@
+@article{792221d8-d4fa-3e81-97f0-da5bffa9e374,
+ ISSN = {08834237},
+ URL = {http://www.jstor.org/stable/2246049},
+ abstract = {$B$-splines are attractive for nonparametric modelling, but choosing the optimal number and positions of knots is a complex task. Equidistant knots can be used, but their small and discrete number allows only limited control over smoothness and fit. We propose to use a relatively large number of knots and a difference penalty on coefficients of adjacent $B$-splines. We show connections to the familiar spline penalty on the integral of the squared second derivative. A short overview of $B$-splines, of their construction and of penalized likelihood is presented. We discuss properties of penalized $B$-splines and propose various criteria for the choice of an optimal penalty parameter. Nonparametric logistic regression, density estimation and scatterplot smoothing are used as examples. Some details of the computations are presented.},
+ author = {Paul H. C. Eilers and Brian D. Marx},
+ journal = {Statistical Science},
+ number = {2},
+ pages = {89--102},
+ publisher = {Institute of Mathematical Statistics},
+ title = {Flexible Smoothing with $B$-splines and Penalties},
+ urldate = {2025-05-05},
+ volume = {11},
+ year = {1996}
+}

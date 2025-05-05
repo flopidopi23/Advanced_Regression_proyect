@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2025-05-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Simulation for Testing Non-Linear Models
+# This script generates synthetic data for both polynomial and sine-exponential models
+# and demonstrates how to fit and evaluate these models
+```{r}
+library(ggplot2)
+library(gridExtra)
+
+set.seed(666420) 
+
+
+# Function to generate data with sine-exponential relationship
+generate_sine_exp_data <- function(n = 1000, noise_sd = 10) {
+  x <- runif(n, 0, 6*pi)
+  # True model: y = sin(x) * exp(0.2*x) + error
+  y <- sin(x) * exp(0.2*x) + rnorm(n, 0, noise_sd)
+  data.frame(x = x, y = y)
+}
+
+# Generate both datasets
+sine_exp_data <- generate_sine_exp_data()
+
+# Visualize the sine-exponential data
+p1 <- ggplot(sine_exp_data, aes(x = x, y = y)) +
+  geom_point(alpha = 0.6) +
+  ggtitle("Sine-Exponential Relationship") +
+  theme_minimal()
+
+p1
+
+```
+

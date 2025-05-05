@@ -2,6 +2,7 @@ library(ggplot2)
 library(gridExtra)
 library(hydroGOF)
 set.seed(666420) 
+library(e1071)
 
 
 # Function to generate data with sine-exponential relationship
@@ -22,18 +23,13 @@ p1 <- ggplot(sine_exp_data, aes(x = x, y = y)) +
   theme_minimal()
 
 p1
-library(e1071)
 
-modelsvm = svm(y~x,sine_exp_data)
-sine_exp_data$x_scale = scale(sine_exp_data$x)
 
-#Predict using SVM regression
+#Predict using SVM regression Base 
 predYsvm = predict(modelsvm, sine_exp_data)
-#scale version
+RMSEsvm=rmse(predYsvm,sine_exp_data$y)
+RMSEsvm
 
-model_scale = svm(y~x_scale,data = sine_exp_data)
-pred_scale = predict(model_scale,sine_exp_data)
-rmse_scal = rmse(pred_scale,sine_exp_data$y)
 #Overlay SVM Predictions on Scatter Plot
 plot(sine_exp_data$x,sine_exp_data$y)
 points(sine_exp_data$x, predYsvm, col = "red", pch=16)
@@ -46,12 +42,12 @@ W = t(modelsvm$coefs) %*% modelsvm$SV
 #Find value of b
 b = modelsvm$rho
 b
-RMSEsvm=rmse(predYsvm,sine_exp_data$y)
-RMSEsvm
 
 
 #Tune the SVM model
-OptModelsvm=tune(svm, y~x, data=sine_exp_data,ranges=list(elsilon=seq(0,1,0.1), cost=1:100))
+OptModelsvm=tune(svm, y~x, data=sine_exp_data,  ranges = list(
+  epsilon = seq(0, 1, 0.1),
+  cost = 2^(-1:7)))
 
 #Print optimum value of parameters
 print(OptModelsvm)
@@ -78,10 +74,29 @@ b = BstModel$rho
 b
 
 plot(sine_exp_data, pch=16)
-points(sine_exp_data$x, predYsvm, col = "blue", pch=3)
 points(sine_exp_data$x, PredYBst, col = "red", pch=4)
 
+#linear regression
 base = lm(y~x,data = sine_exp_data)
 pred_base = predict(base,sine_exp_data)
 points(sine_exp_data$x, pred_base, col = "darkgreen", pch=4)
 rsme_base = rmse(pred_base,sine_exp_data$y)
+
+library(ggplot2)
+p5 <- ggplot(sine_exp_data, aes(x = x)) +
+  geom_point(aes(y = y), alpha = 0.3, color = "black")+
+  geom_line(aes(y = predYsvm, color = "SVR Base")) +
+  geom_line(aes(y = PredYBst, color = "SVR Tuned")) +
+  geom_line(aes(y = pred_base, color = "Linear Model")) +
+  scale_color_manual(values = c("SVR Base" = "blue", "SVR Tuned" = "red", "Linear Model" = "darkgreen")) +
+  ggtitle("True vs Predicted") +
+  ylab("y") +  theme_minimal() +
+  labs(color = "Model")
+p5
+jpeg("plot_pred_vs_true_svm_p5.jpg", width = 1200, height = 800, quality = 100)
+print(p5)
+dev.off()
+
+a = data.frame(model=c("Linear","SVR Base","SVR tune"),
+               RMSE = c(rsme_base,RMSEsvm,RMSEBst))
+write.csv(a,"rmse_svm.csv")

@@ -287,7 +287,46 @@ which does not reject the normality hypothesis.
 \end{figure}
 
 
-\subsubsection{SVM Implementation}
+\subsubsection{SVR Implementation}
+Support Vector Regression was implemented using the \textbf{e1071} package, which interfaces with \textit{libsvm}. Two versions of the SVR model were explored: a base model using default parameters and a tuned model optimized using grid search.
+
+This models were trained on scaled input data to avoid issues related to kernel sensitivity to variable magnitude.The base SVR model was trained using the radial basis function (RBF) kernel. A second, tuned SVR model was fitted by optimizing the $\epsilon$-insensitive margin and the regularization parameter $C$, with a search grid defined as $\epsilon \in [0, 1]$ and $C \in \{2^{-1}, 2^0, \dots, 2^7\}$. The best model was selected based on RMSE. 
+
+Prediction accuracy was evaluated by comparing the fitted values to true values using a visual overlay (Figure~\ref{fig:svr_overlay}) and RMSE scores across the linear model, base SVR, and tuned SVR (Table~\ref{tab:svr_rmse}). The SVR tuned model clearly outperformed both the base SVR and linear regression models.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{plot_pred_vs_true_svm_p5.jpg}
+    \caption{Overlay of predicted vs actual values for Linear Regression, SVR Base, and SVR Tuned models.}
+    \label{fig:svr_overlay}
+    \vspace{-10pt}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lcc}
+    \hline
+    \textbf{Model} & \textbf{RMSE} \\
+    \hline
+    Linear Regression & \texttt{[insert value]} \\
+    SVR Base          & \texttt{[insert value]} \\
+    SVR Tuned         & \texttt{[insert value]} \\
+    \hline
+    \end{tabular}
+    \caption{Root Mean Squared Error (RMSE) comparison across models.}
+    \label{tab:svr_rmse}
+\end{table}
+
+Residual analysis was performed to assess model performance beyond accuracy. The residuals from the tuned SVR model were plotted against fitted values and examined through histogram and density analysis (Figure~\ref{fig:svr_residuals}). The residuals appeared randomly scattered around zero and approximately normally distributed, supported by the Anderson-Darling test with a p-value of \texttt{[insert value]}, indicating no strong evidence against normality.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.40\columnwidth]{plot_residuals_svr.jpg}
+    \includegraphics[width=0.40\columnwidth]{plot_residuals_hist_svr.jpg}
+    \caption{Left: Residuals vs Fitted plot. Right: Residual distribution with Anderson-Darling test result.}
+    \label{fig:svr_residuals}
+\end{figure}
+
 
 \subsection{Results}
 % Example of a table

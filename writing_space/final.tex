@@ -31,17 +31,27 @@
 \usepackage{hyperref}        % For hyperlinks
 \usepackage{geometry}        % For page layout
 \usepackage{algorithm}       % For algorithms
-\usepackage{algpseudocode}   % For algorithm pseudocode
-\usepackage{natbib}    
-\bibliographystyle{apalike}       % For bibliography
+\usepackage{algpseudocode} % For algorithm pseudocode
+
+% BIBLIOGRAPHY SETTINGS
+\usepackage[numbers]{natbib}    
+\bibliographystyle{IEEEtran}
+
 % Page layout
 \geometry{
   paper=a4paper,
   top=0.5cm,
-  bottom=0.5cm,
+  bottom=1.0cm,
   left=0.5cm,
   right=0.5cm,
 }
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyfoot[C]{\thepage} % Page number at center of footer
+\renewcommand{\headrulewidth}{0pt} % Remove header rule
+\setlength{\footskip}{15pt} % Increase this value to move page number up
 
 % Remove large paragraph indents
 \setlength{\parindent}{0pt}   % Remove paragraph indentation completely
@@ -77,9 +87,6 @@
   Numbers=OldStyle
 ]
 
-% Bibliography settings
-\bibliographystyle{plainnat}
-
 % Hyperref settings
 \hypersetup{
   colorlinks=true,
@@ -89,7 +96,7 @@
 }
 
 % Title information
-\title{\textbf{Paper Title and Its Main Contribution}}
+\title{\textbf{Non-Linear Regression: comparison between P-Splines and SVM Regression Using Sine-Exponential Simulated Data}}
 \author{First Author and Second Author\\
 }
 \date{}
@@ -100,39 +107,97 @@
 
 \begin{abstractbox}
 \noindent\textbf{Abstract} \\
-Your abstract goes here. Variable selection is an important topic in linear regression analysis. In practice, a large number of predictors are introduced at the initial stage of modeling to enhance predictability and to avoid possible modeling biases. We propose a unified approach via penalized least squares. The penalty functions have to be singular at the origin to produce sparse solutions. Furthermore, the penalty function should be bounded by a constant to reduce bias.
+DO NOT FORGET TO INCLUDE SECTION HERE!!!
 
 \vspace{0.5em}
-\noindent\textbf{KEY WORDS:} \ Hard thresholding; LASSO; Nonparametric curve; Penalized likelihood; Oracle estimator.
+\noindent\textbf{KEY WORDS:} \ non-linear regression; GAM; univariate analysis; P-Splines; SVM Regression; simulation study
 \end{abstractbox}
 
 
 % 1. INTRODUCTION
 \section{INTRODUCTION}
 
-Variable selection is an important topic in linear regression analysis. In practice, a large number of predictors usually are introduced at the initial stage of modeling to enhance possible modeling biases. On the other hand, to enhance predictability and to avoid overfitting, statisticians usually use stepwise deletion and subset selection. The penalty functions have to be singular at the origin to produce sparse solutions. Furthermore, with proper choice of regularization parameters, we show that the proposed estimators perform as well as the oracle procedure in variable selection; namely, they work as well as if the correct submodel were known. Our simulation shows that the newly proposed penalized likelihood compare favorably with other variable selection techniques.
+There has been a significant development in non-linear regression techniques due to the advent of modern high-speed computing.
+This new family of techniques, often originating from machine learning and computer science environments directly compete with
+more traditional statistics techniques whose theory predates the contemporary machine learning algorithm.
+
+This simulation study aims to compare two such techniques: Splines which have origins in 20th century, and the Support Vector Machines that became
+a technique-of-choice in the early 21st century before neural networks became more viable option in recent years.
 
 \subsection{Splines}
 
+Splines were first proposed in 1946 by Schoenberg who provided mathematical theory
+for piecewise polynomial functions that are connected via knots \cite{schoenberg1946}. This was later improved by
+the introduction of smoothing splines in 1967 by Reinsch for balancing smoothness with data fitting \cite{reinchs1967}.
+
+However, the previous approaches relied on subjective parameter selection. The
+key development came with the introduction of generalised cross-validation in 1978 \cite{crwah1978}.
+Smoothing spline theory as well as cubic splines were then formalused by Wahba in 1990 \cite{wahba1990}.
+
+At the same time, there was a development in an alternative approach using basis splines (B-splines)
+that, due to them using local rather than global support, are computationally more efficient \cite{deboor1978}.
+However, B-splines require manual knot placement and selection which makes their
+use more subjective and prone to errors in practice.
+
+The key development that brought splines to prominance was Eilers and Marx's introduction
+of penalised B-splines (P-splines) in 1996 \cite{eilmarx1996}. The technique combines computational
+efficiency of B-splines with the adaptive smoothing penalty techniques. Due to its use of large
+number of equally-spced knots. The penalty is then applied between adjacing B-spline coefficients.
+This approach balances smoothness and fit through a single tuning parameter and avoids a subjective choice
+of knot locations. However, the number of appropriate knots still remains subjective with larger number
+of knots may still lead to overfitting, albeit much less pronounced compared to B-splines.
+
+The contemporary developments include the introduction of both frequentist \cite{krivo2008} and
+Bayesian \cite{woods2017} uncertainty quantification which allowed for scientific applcation of splines. There has also been
+significant development in other fields, such as multivariate extensions and functional data analysis \cite{woods2017}
+
+The univariate P-spline model uses the following two equations:
+
+\begin{equation}
+    f(x) = \sum_{j=1}^{n} \beta_j B_j(x)
+\end{equation}
+
+where $B_j(x)$ are B-spline basis functions; $\beta_j$ are coefficients;
+and $n$ is the number of basis functions.
+
+The above is subject to the following minimisation contraint for coefficient estimation:
+\begin{equation}
+    \sum_{i=1}^{m} (y_i - f(x_i))^2 + \lambda \sum_{j=d+1}^{n} (\Delta^d \beta_j)^2
+\end{equation}
+
+where the first term measures fit to the data; the second term is a penalty on differences between adjacent coefficients;
+$\lambda$ is the smoothing parameter; and $\Delta^d$ represents the $d$ order difference operator.
+
+
 \subsection{Support Vector Reggresion}
-\citet{vapnik1995nature} proposed the Support Vector Regression (SVR) framework by extending Support Vector Machine (SVM) to regression models. SVR constructs a regression function based on a subset of the data, known as support vectors. In its original form, Vapnik introduced the following representation:
+\cite{vapnik1995nature} proposed the Support Vector Regression (SVR) framework
+by extending Support Vector Machine (SVM) to regression models. SVR constructs a
+regression function based on a subset of the data, known as support vectors. In its original form, Vapnik introduced the following representation:
 
 \begin{equation}
 F_2(x, \mathbf{w}) = \sum_{i=1}^{N} (\alpha_i^* - \alpha_i) (v_i^\top x + 1)^p + b
 \end{equation}
 
-Here, $\alpha_i$, $\alpha_i^*$ are Lagrange multipliers obtained from the dual optimization problem, $v_i$ represents the data samples, $p$ is the degree of the polynomial kernel, and the term $(v_i^\top x + 1)^p$ corresponds to the kernel function. This formula use a specific polinomial kernel.
+Here, $\alpha_i$, $\alpha_i^*$ are Lagrange multipliers obtained from the dual optimization
+problem, $v_i$ represents the data samples, $p$ is the degree of the polynomial kernel, and the term $(v_i^\top x + 1)^p$ corresponds to the kernel
+function. This formula use a specific polinomial kernel.
 
-The SVR model can be more generalized replacing the polynomial kernel with any positive-definite kernel function $K(x_i, x)$, leading to the more flexible representation:
+The SVR model can be more generalized replacing the polynomial kernel with any positive-definite
+kernel function $K(x_i, x)$, leading to the more flexible representation:
 
 \begin{equation}
 f(x) = \sum_{i=1}^{N} (\alpha_i^* - \alpha_i) K(x_i, x) + b
 \end{equation}
 
-This form allows SVR to capture complex, non-linear relationships in data. Commonly used kernels include the radial basis function, linear and sigmoid kernels, making SVR a powerful and adaptable tool for regression tasks involving non-linear data structures.
+This form allows SVR to capture complex, non-linear relationships in data.
+Commonly used kernels include the radial basis function, linear and sigmoid kernels,
+making SVR a powerful and adaptable tool for regression tasks involving non-linear data structures.
 
-\subsection{Loss Function and Hyperparameters}
-The loss function utilized in this model is the $\varepsilon$-insensitive loss function, first introduced by \citet{vapnik1995nature}. This loss function defines a tube of tolerance around the regression function, within which errors are not penalized. The idea is to focus on fitting the data while ignoring small deviations that are likely due to noise (just like the svm do to separed classes). The loss function $L_\varepsilon$ is defined as:
+\subsubsection{Loss Function and Hyperparameters}
+The loss function utilized in this model is the $\varepsilon$-insensitive loss function, first
+introduced by \cite{vapnik1995nature}. This loss function defines a tube of tolerance around the regression function,
+within which errors are not penalized. The idea is to focus on fitting the data while ignoring small deviations that
+are likely due to noise (just like the svm do to separed classes). The loss function $L_\varepsilon$ is defined as:
 
 \begin{equation}
 L_\varepsilon(y, f(x)) = 
@@ -142,9 +207,11 @@ L_\varepsilon(y, f(x)) =
 \end{cases}
 \end{equation}
 
-Only data points that lie outside the $\varepsilon$-tube contribute to the cost function, making the solution sparse in terms of support vectors \citep{smola1998tutorial}.
+Only data points that lie outside the $\varepsilon$-tube contribute to
+the cost function, making the solution sparse in terms of support vectors \cite{smola1998tutorial}.
 
-The Hyperparameters that are involve in this model are three and they are use to control the flexibility and generalization of the model:
+The Hyperparameters that are involve in this model are three and they are use to control
+the flexibility and generalization of the model:
 
 \begin{itemize}
     \item \textbf{Regularization parameter $C$}: This controls the bias-variance trade-off of the model. A high $C$ encourages the model to minimize errors at the risk of overfitting, while a small $C$ yields a smoother function that may tolerate larger errors.
@@ -158,49 +225,84 @@ The Hyperparameters that are involve in this model are three and they are use to
     \end{itemize}
 \end{itemize}
 
-As noted by \citet{hastie2009elements}, the choice and tuning of these hyperparameters are crucial for model performance and are selected through cross-validation techniques.
+As noted by \cite{hastie2009elements}, the choice and tuning of these hyperparameters are crucial for model performance and are selected through cross-validation techniques.
 
 
 \section{Simulation Study}
 
-The penalized least squares idea can be extended naturally to likelihood-based models in various statistical contexts. Our approaches are distinguished from traditional methods (usually quadratic penalty) in that the penalty functions are symmetric, convex on $(0, \infty)$ (rather than concave for the negative quadratic penalty in the penalized likelihood situation), and possess singularities at the origin.
-i
+This section discusses the specific apporach that was taken for the simulation
+study, decisions taken regarding each implementation, and presentation of final
+comparison results:
+
+\subsection{Methodology}
+
+\subsubsection{Data Simulation}
+
+To evaluate the performance, sine-exponential function was used to simulate data.
+This nonlinear function combines periodic oscillations with exponential growth, creating a
+challenging test case for nonparametric regression techniques.
+
+The underlying deterministic function is defined as:
+
+$$f(x) = \sin(x) \cdot e^{\alpha x}$$
+
+where $\alpha = 0.2$ represents the exponential growth rate parameter.
+The complete data generating process is formalised as:
+
+$$y_i = \sin(x_i) \cdot e^{0.2x_i} + \varepsilon_i, \quad i = 1,\ldots,n$$
+
+with the following specifications:$x_i \sim \mathcal{U}(0, 6\pi)$ (\emph{random sampling specification};
+$\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$, where $\sigma = 10$ represents the standard deviation of Gaussian noise; and
+$n = 1000$ represents the total number of observations.
+
+\subsubsection{P-Spline Implementation}
+
+P-spline model was implemented using \textbf{mgcv} package that is from Wood \cite{mgcv} and is still activelly developed.
+The package includes automatic GCV which was used for smoothing parameter tuning.
+According to Woods \cite{woods2017} second-order difference penalty is best choice for fitting
+a data with oscillating pattern and therefore was used in our model specification.
+
+However, the choice of number of knots is still subjective and relative to data. Based on
+graphical analysis, the appropriate number of knots was determined to be 40. Despite the overlapping with
+its double, 40 was chosen due to its reduced complexity.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{psplines_knots_comparison.png}
+    \caption{Your caption here.}
+    \label{fig:your_label}
+    \vspace{-10pt}
+\end{figure}
+
+Finally, residual plot was analysed to determine as well as the residual distribution. From these plots it was determined that
+residuals are univorm, homoscedastic with approximately normal distribution with Anderson-Darling Normality tests p-value being 0.114
+which does not reject the normality hypothesis.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.40\columnwidth]{psplines_residuals.png}
+    \includegraphics[width=0.40\columnwidth]{psplines_residual_distribution.png}
+    \caption{Left image shows residual plot and right their distribution}
+    \label{fig:both_images}
+\end{figure}
 
 
+\subsubsection{SVM Implementation}
 
-
-% Example of a mathematical equation
-\begin{equation}
-  \label{eq:example}
-  p_{\lambda}(|\beta_j|) = \lambda^2 - (|\beta_j| - \lambda)^2 I(|\beta_j| < \lambda)
-\end{equation}
-
-% Example of an algorithm
-\begin{algorithm}
-  \caption{SCAD Algorithm}
-  \label{alg:scad}
-  \begin{algorithmic}[1]
-    \State Initialize $\beta^{(0)} = $ least squares estimate
-    \For{$k = 0, 1, 2, \ldots$ until convergence}
-      \State Set weights $w_j = p'_{\lambda}(|\beta_j^{(k)}|)/|\beta_j^{(k)}|$
-      \State Minimize $\|Y - X\beta\|^2 + \sum_{j=1}^p w_j \beta_j^2$
-      \State Set $\beta^{(k+1)} = $ the minimizer
-    \EndFor
-  \end{algorithmic}
-\end{algorithm}
-
+\subsection{Results}
 % Example of a table
+% INCLUDE PREDICTION?
+
 \begin{table}[ht]
   \centering
-  \caption{Median Relative Model Error}
+  \caption{Goodness-of-fit}
   \label{tab:example}
   \begin{tabular}{@{}lrrr@{}}
     \toprule
-    Method & Model 1 & Model 2 & Model 3 \\
+      Model & RMSE & MAE & R-Sq & Max. Error \\
     \midrule
-    SCAD & 0.35 & 0.42 & 0.38 \\
-    LASSO & 0.60 & 0.58 & 0.59 \\
-    Hard & 0.82 & 0.71 & 0.73 \\
+     P-spline \\
+     SVM \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -208,7 +310,6 @@ i
 % 4. CONCLUSION
 \section{CONCLUSION}
 
-The penalized likelihood estimators perform as well as the oracle procedure in terms of selecting the correct submodel when the regularization parameter is appropriately chosen. In short, the proposed procedures outperform the maximum likelihood estimator and perform as well as the oracle. This is very analogous to the superefficiency phenomenon in the Hodges estimator.
 
 \bibliography{citation}
 

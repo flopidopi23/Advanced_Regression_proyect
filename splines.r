@@ -154,3 +154,24 @@ ggsave("psplines_knots_comparison.png", p4, width = 10, height = 7, dpi = 300)
 
 # Print summary of the model
 print(summary(model))
+
+# Create residual distribution plot with Anderson-Darling test results
+library(nortest)  # Load package for normality tests
+
+# Perform Anderson-Darling test
+ad_test <- ad.test(residuals)
+
+# Create plot with test results displayed on it
+p5 <- ggplot(resid_data, aes(x = residual)) +
+    geom_histogram(bins = 30, fill = "steelblue", color = "black", alpha = 0.7) +
+    geom_density(aes(y = ..count.. * (max(resid_data$residual) - min(resid_data$residual))/30), 
+                 color = "red", size = 1) +
+    labs(title = "Distribution of Residuals from P-splines Fit",
+         subtitle = paste("Anderson-Darling test: A =", round(ad_test$statistic, 4), 
+                          ", p-value =", format(ad_test$p.value, scientific = TRUE, digits = 4)),
+         x = "Residual", y = "Count") +
+    theme_minimal() +
+    theme(plot.subtitle = element_text(size = 11, face = "italic"))
+
+# Save the plot with the test results
+ggsave("psplines_residual_distribution.png", p5, width = 10, height = 6, dpi = 300)

@@ -26,6 +26,7 @@ p1
 
 
 #Predict using SVM regression Base 
+modelsvm = svm(y~x,data = sine_exp_data)
 predYsvm = predict(modelsvm, sine_exp_data)
 RMSEsvm=rmse(predYsvm,sine_exp_data$y)
 RMSEsvm
@@ -100,3 +101,21 @@ dev.off()
 a = data.frame(model=c("Linear","SVR Base","SVR tune"),
                RMSE = c(rsme_base,RMSEsvm,RMSEBst))
 write.csv(a,"rmse_svm.csv")
+
+
+ggplot(sine_exp_data, aes(x = PredYBst, y = BstModel$residuals)) +
+  geom_point(alpha = 0.4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "SVR Tuned: Residuals vs Fitted",
+       x = "Fitted Values (Predicted)",
+       y = "Residuals") +
+  theme_minimal()
+
+
+ggplot(sine_exp_data, aes(x = predYsvm, y = modelsvm$residuals)) +
+  geom_point(alpha = 0.4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "SVR: Residuals vs Fitted",
+       x = "Fitted Values (Predicted)",
+       y = "Residuals") +
+  theme_minimal()

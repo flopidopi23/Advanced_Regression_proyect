@@ -337,32 +337,68 @@ For P-splines, the Wood's package was used to calculate fit and standard error m
 
 \subsection{Results}
 
-The P-spline results suggest moderate prediction accuracy(RMSE = 10.178). The lower MAE(8.241) suggest there are not many extreme outliers with 54\% of explained variance.
+The results show that both P-splines and the tuned SVM model significantly outperformed linear regression. Among the non-linear methods, Table~\ref{tab:train} suggests that P-splines performed slightly better than the tuned SVM model. Specifically, the P-spline model achieved an RMSE of 10.177 and a MAE of 8.241, compared to 10.220 and 8.277 for the tuned SVM. The lower MAE indicates fewer extreme prediction errors, while the explained variance of 53.4\% confirms that the P-spline model captured the underlying structure with moderate accuracy.
+
+%The P-spline results suggest moderate prediction accuracy(RMSE = 10.178). The lower MAE(8.241) suggest there are not many extreme outliers with 54\% of explained variance.
 
 \begin{table}[ht]
   \centering
-  \caption{Goodness-of-fit and Prediction}
+  \caption{Goodness-of-fit}
+  \label{tab:train}
   \setlength{\tabcolsep}{4pt}
   \begin{tabular}{@{}lccc@{}}
     \toprule
-      Model & RMSE & MAE & R-Sq  \\
+    Model & RMSE & MAE & R-Squared \\
     \midrule
-      P-spline & 10.177 & 8.241 & 0.534 \\
-      SVM Tuned & 10.220 & 8.277 & 0.530 \\ 
-    \midrule
-     Model & Pred-RMSE & PICP & Av. Interval Width \\
-    \midrule
-      P-spline & 10.024 & 0.97 & 40.553\\
-      Svm Tuned & 10.034 & 0.97 & 40.267 \\
+    P-spline & 10.177 & 8.241 & 0.534 \\
+    SVM Tuned & 10.220 & 8.277 & 0.530 \\
     \bottomrule
   \end{tabular}
 \end{table}
+
+To assess the generalization performance of the models, we evaluated the prediction RMSE and Prediction Interval Coverage Probability (PICP) on an independent test dataset. The results, presented in Table~\ref{tab:test}, indicate that both models performed similarly. The P-spline model achieved a prediction RMSE of 10.024 and a PICP of 0.97, while the tuned SVM model obtained a prediction RMSE of 10.034 with the same PICP. The average interval width was slightly larger for the P-spline model (40.553) compared to the SVM model (40.267), suggesting that the P-spline produced more conservative uncertainty estimates.
+
+\begin{table}[ht]
+  \centering
+  \caption{Performance on Test Data}
+  \label{tab:test}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Model & Pred-RMSE & PICP & Avg. Interval Width \\
+    \midrule
+    P-spline & 10.024 & 0.97 & 40.553 \\
+    SVM Tuned & 10.034 & 0.97 & 40.267 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+These results suggest that both models are capable of producing reliable predictions for non-linear data. This is further illustrated in Figure~\ref{fig:prediction_comparison}, where both models closely follow the true underlying function. The prediction intervals are also displayed, showing that while both models achieve the same coverage level, the SVM model yields slightly narrower intervals.
+%\begin{table}[ht]
+%  \centering
+%  \caption{Goodness-of-fit and Prediction}
+%  \setlength{\tabcolsep}{4pt}
+%  \begin{tabular}{@{}lccc@{}}
+%    \toprule
+%      Model & RMSE & MAE & R-Sq  \\
+%    \midrule
+%      P-spline & 10.177 & 8.241 & 0.534 \\
+%      SVM Tuned & 10.220 & 8.277 & 0.530 \\ 
+%    \midrule
+%     Model & Pred-RMSE & PICP & Av. Interval Width \\
+%    \midrule
+%      P-spline & 10.024 & 0.97 & 40.553\\
+%      Svm Tuned & 10.034 & 0.97 & 40.267 \\
+%    \bottomrule
+%  \end{tabular}
+%\end{table}
 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\columnwidth]{img7.png}
     \caption{Comparison predictive power between P-splines SVM Tuned models}
+    \label{fig:prediction_comparison}
     \vspace{-10pt}
 \end{figure}
 
@@ -370,6 +406,14 @@ The P-spline results suggest moderate prediction accuracy(RMSE = 10.178). The lo
 
 % 4. CONCLUSION
 \section{CONCLUSION}
+
+This study set out to evaluate how well non-linear regression methods perform when modeling data with a clearly non-linear pattern. By comparing P-splines and Support Vector Regression (SVR) to a basic linear model, the results showed that the more flexible, non-linear approaches had a clear advantage.
+
+Both P-splines and the tuned SVR model performed much better than linear regression, which struggled to capture the shape of the sine-exponential function. This confirms the expectation that linear models aren't a good fit for this kind of complex relationship.
+
+Between the two non-linear methods, performance was very similar. P-splines had a slight edge on the training set, but both models were equally accurate on the test data. For uncertainty estimation, both reached high coverage (PICP = 0.97), though their interval widths differed: SVR gave tighter intervals, while P-splines were more cautious with wider ones.
+
+Overall, this study highlights the strengths of non-linear methods when linear assumptions break down. Both models worked well, and the better choice depends on what matters most in a given situation, whether that's interpretability, precision, or speed.
 
 
 \bibliography{citation}

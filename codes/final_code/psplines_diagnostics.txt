@@ -1,0 +1,60 @@
+
+> cat("=== P-SPLINES MODEL DIAGNOSTICS ===\n\n")
+=== P-SPLINES MODEL DIAGNOSTICS ===
+
+
+> cat("--- KEY MODEL INFORMATION ---\n")
+--- KEY MODEL INFORMATION ---
+
+> cat("Effective degrees of freedom:", sum(model$edf), "\n")
+Effective degrees of freedom: 16.15944 
+
+> cat("Smoothing parameter:", model$sp, "\n")
+Smoothing parameter: 148.3146 
+
+> cat("GCV score:", model$gcv.ubre, "\n\n")
+GCV score: 106.9971 
+
+
+> cat("--- PERFORMANCE METRICS ---\n")
+--- PERFORMANCE METRICS ---
+
+> cat("RMSE:", rmse_pspline, "\n")
+RMSE: 10.17679 
+
+> cat("MAE:", mae_pspline, "\n")
+MAE: 8.24112 
+
+> cat("R-squared:", r_squared_pspline, "\n\n")
+R-squared: 0.5343774 
+
+
+> cat("--- MODEL SUMMARY ---\n")
+--- MODEL SUMMARY ---
+
+> print(summary(model))
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+y ~ s(x, bs = "ps", k = 40, m = 2)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -2.5608     0.3245  -7.893 7.85e-15 ***
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+       edf Ref.df     F p-value    
+s(x) 15.16  18.33 60.11  <2e-16 ***
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.527   Deviance explained = 53.4%
+GCV =    107  Scale est. = 105.27    n = 1000
+
+> sink()

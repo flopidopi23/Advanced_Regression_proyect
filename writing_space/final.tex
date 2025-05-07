@@ -170,7 +170,7 @@ $\lambda$ is the smoothing parameter; and $\Delta^d$ represents the $d$ order di
 
 
 \subsection{Support Vector Reggresion}
-\cite{vapnik1995nature} proposed the Support Vector Regression (SVR) framework
+Vapnik \cite{vapnik1995nature} proposed the Support Vector Regression (SVR) framework
 by extending Support Vector Machine (SVM) to regression models. SVR constructs a
 regression function based on a subset of the data, known as support vectors. In its original form, Vapnik introduced the following representation:
 
@@ -195,7 +195,7 @@ making SVR a powerful and adaptable tool for regression tasks involving non-line
 
 \subsubsection{Loss Function and Hyperparameters}
 The loss function utilized in this model is the $\varepsilon$-insensitive loss function, first
-introduced by \cite{vapnik1995nature}. This loss function defines a tube of tolerance around the regression function,
+introduced by Vapnik \cite{vapnik1995nature}. This loss function defines a tube of tolerance around the regression function,
 within which errors are not penalized. The idea is to focus on fitting the data while ignoring small deviations that
 are likely due to noise (just like the svm do to separed classes). The loss function $L_\varepsilon$ is defined as:
 
@@ -225,7 +225,7 @@ the flexibility and generalization of the model:
     \end{itemize}
 \end{itemize}
 
-As noted by \cite{hastie2009elements}, the choice and tuning of these hyperparameters are crucial for model performance and are selected through cross-validation techniques.
+As noted by Hastie \emph{et al.} \cite{hastie2009elements}, the choice and tuning of these hyperparameters are crucial for model performance and are selected through cross-validation techniques.
 
 
 \section{Simulation Study}
@@ -264,24 +264,26 @@ a data with oscillating pattern and therefore was used in our model specificatio
 
 However, the choice of number of knots is still subjective and relative to data. Based on
 graphical analysis, the appropriate number of knots was determined to be 40. Despite the overlapping with
-its double, 40 was chosen due to its reduced complexity.
+its double, 40 was chosen due to its reduced complexity. However, the effective degrees of freedom (EDF) is 16.159 meaning the number of knots was effectively reduced to prevent overfitting which suggest the penalisation function works as intended.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{psplines_knots_comparison.png}
-    \caption{Your caption here.}
+    \includegraphics[width=0.8\columnwidth]{img1.png}
+    \caption{Comparison of different numbers of basis functions}
     \label{fig:your_label}
     \vspace{-10pt}
 \end{figure}
 
 Finally, residual plot was analysed to determine as well as the residual distribution. From these plots it was determined that
 residuals are univorm, homoscedastic with approximately normal distribution with Anderson-Darling Normality tests p-value being 0.114
-which does not reject the normality hypothesis.
+which does not reject the normality hypothesis. The model explained 53.4\% of variance.
+
+Overall, the model succesfully captured the non-linear relationwhip with the smoot term being highly significant (p-value <0.001; F = 60.11).
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.40\columnwidth]{psplines_residuals.png}
-    \includegraphics[width=0.40\columnwidth]{psplines_residual_distribution.png}
+    \includegraphics[width=0.40\columnwidth]{img2.png}
+    \includegraphics[width=0.40\columnwidth]{img3.png}
     \caption{Left image shows residual plot and right their distribution}
     \label{fig:both_images}
 \end{figure}
@@ -292,12 +294,12 @@ Support Vector Regression was implemented using the \textbf{e1071} package, whic
 
 This models were trained on scaled input data to avoid issues related to kernel sensitivity to variable magnitude.The base SVR model was trained using the radial basis function (RBF) kernel. A second, tuned SVR model was fitted by optimizing the $\epsilon$-insensitive margin and the regularization parameter $C$, with a search grid defined as $\epsilon \in [0, 1]$ and $C \in \{2^{-1}, 2^0, \dots, 2^7\}$. The best model was selected based on RMSE. 
 
-Prediction accuracy was evaluated by comparing the fitted values to true values using a visual overlay (Figure~\ref{fig:svr_overlay}) and RMSE scores across the linear model, base SVR, and tuned SVR (Table~\ref{tab:svr_rmse}). The SVR tuned model clearly outperformed both the base SVR and linear regression models.
+Prediction accuracy was evaluated by comparing the fitted values to true values using a visual overlay (Figure 4) and RMSE scores across the linear model, base SVR, and tuned SVR (Table 1). The SVR tuned model clearly outperformed both the base SVR and linear regression models.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{plot_pred_vs_true_svm_p5.jpg}
-    \caption{Overlay of predicted vs actual values for Linear Regression, SVR Base, and SVR Tuned models.}
+    \includegraphics[width=0.8\columnwidth]{img4.png}
+    \caption{Overlay of predicted vs actual values for Linear Regression, SVR Base, SVR Tuned models, and Actual Model}
     \label{fig:svr_overlay}
     \vspace{-10pt}
 \end{figure}
@@ -308,43 +310,63 @@ Prediction accuracy was evaluated by comparing the fitted values to true values 
     \hline
     \textbf{Model} & \textbf{RMSE} \\
     \hline
-    Linear Regression & \texttt{[insert value]} \\
-    SVR Base          & \texttt{[insert value]} \\
-    SVR Tuned         & \texttt{[insert value]} \\
+    Linear Regression & \texttt{14.350} \\
+    SVR Base          & \texttt{11.720} \\
+    SVR Tuned         & \texttt{10.220} \\
     \hline
     \end{tabular}
     \caption{Root Mean Squared Error (RMSE) comparison across models.}
     \label{tab:svr_rmse}
 \end{table}
 
-Residual analysis was performed to assess model performance beyond accuracy. The residuals from the tuned SVR model were plotted against fitted values and examined through histogram and density analysis (Figure~\ref{fig:svr_residuals}). The residuals appeared randomly scattered around zero and approximately normally distributed, supported by the Anderson-Darling test with a p-value of \texttt{[insert value]}, indicating no strong evidence against normality.
+Residual analysis was performed to assess model performance beyond accuracy. The residuals from the tuned SVR model were plotted against fitted values and examined through histogram and density analysis (Figure~\ref{fig:svr_residuals}). The residuals appeared randomly scattered around zero and approximately normally distributed, supported by the Anderson-Darling test with a p-value of \texttt{0.076}, indicating no strong evidence against normality.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.40\columnwidth]{plot_residuals_svr.jpg}
-    \includegraphics[width=0.40\columnwidth]{plot_residuals_hist_svr.jpg}
+    \includegraphics[width=0.40\columnwidth]{img5.png}
+    \includegraphics[width=0.40\columnwidth]{img6.png}
     \caption{Left: Residuals vs Fitted plot. Right: Residual distribution with Anderson-Darling test result.}
     \label{fig:svr_residuals}
 \end{figure}
 
+\subsubsection{Prediction Testing Method}
+
+Firstly, a sample fo 200 new data was generated as a testing data set, meaning this data was not used for training of any models. We then made predictions using our models. Prediction interval(95\%) was calculated for both P-splines and SVMwhich was later used for calculating Prediction Interval Coverage Probability(PICP).
+
+For P-splines, the Wood's package was used to calculate fit and standard error mmetrics. For SVM, a simulation method had to be used to achieve prediction interval. While using simulation on top of simulation reduces credibility of this aproach, this is the best solution given the lack of interval theory in SVM implementation. The number of bootstrap iteration was set to 1000 to calculate confidence intervals and later prediction intervals.
 
 \subsection{Results}
-% Example of a table
-% INCLUDE PREDICTION?
+
+The P-spline results suggest moderate prediction accuracy(RMSE = 10.178). The lower MAE(8.241) suggest there are not many extreme outliers with 54\% of explained variance.
 
 \begin{table}[ht]
   \centering
-  \caption{Goodness-of-fit}
-  \label{tab:example}
-  \begin{tabular}{@{}lrrr@{}}
+  \caption{Goodness-of-fit and Prediction}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lccc@{}}
     \toprule
-      Model & RMSE & MAE & R-Sq & Max. Error \\
+      Model & RMSE & MAE & R-Sq  \\
     \midrule
-     P-spline \\
-     SVM \\
+      P-spline & 10.177 & 8.241 & 0.534 \\
+      SVM Tuned & 10.220 & 8.277 & 0.530 \\ 
+    \midrule
+     Model & Pred-RMSE & PICP & Av. Interval Width \\
+    \midrule
+      P-spline & 10.024 & 0.97 & 40.553\\
+      Svm Tuned & 10.034 & 0.97 & 40.267 \\
     \bottomrule
   \end{tabular}
 \end{table}
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{img7.png}
+    \caption{Comparison predictive power between P-splines SVM Tuned models}
+    \vspace{-10pt}
+\end{figure}
+
+
 
 % 4. CONCLUSION
 \section{CONCLUSION}

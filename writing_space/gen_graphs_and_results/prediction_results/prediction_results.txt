@@ -1,0 +1,84 @@
+
+> cat("=== MODEL PREDICTION PERFORMANCE ON TEST DATA ===\n\n")
+=== MODEL PREDICTION PERFORMANCE ON TEST DATA ===
+
+
+> cat("--- P-SPLINES MODEL ---\n")
+--- P-SPLINES MODEL ---
+
+> cat("Testing RMSE:", pspline_test_rmse, "\n")
+Testing RMSE: 10.02373 
+
+> cat("PICP (Prediction Interval Coverage Probability):", picp_pspline, "\n")
+PICP (Prediction Interval Coverage Probability): 0.97 
+
+> cat("Average interval width:", mean(pspline_upper - pspline_lower), "\n\n")
+Average interval width: 40.55335 
+
+
+> cat("--- SVM MODEL ---\n")
+--- SVM MODEL ---
+
+> cat("Testing RMSE:", svm_test_rmse, "\n")
+Testing RMSE: 10.0339 
+
+> cat("PICP (Prediction Interval Coverage Probability):", picp_svm, "\n")
+PICP (Prediction Interval Coverage Probability): 0.97 
+
+> cat("Average interval width:", mean(svm_predictions$upper - svm_predictions$lower), "\n\n")
+Average interval width: 40.2675 
+
+
+> cat("--- COMPARATIVE METRICS ---\n")
+--- COMPARATIVE METRICS ---
+
+> cat("RMSE Ratio (SVM/P-splines):", svm_test_rmse/pspline_test_rmse, "\n")
+RMSE Ratio (SVM/P-splines): 1.001014 
+
+> cat("P-value for RMSE difference:", t.test(
++     (testing_data$y - pspline_fit)^2,
++     (testing_data$y - svm_pred)^2,
++     paired = TRUE
++ )$p.v .... [TRUNCATED] 
+P-value for RMSE difference: 0.8785596 
+
+
+> cat("=== MODEL SUMMARY ===\n\n")
+=== MODEL SUMMARY ===
+
+
+> cat("P-splines effective degrees of freedom:", sum(model$edf), "\n")
+P-splines effective degrees of freedom: 16.15944 
+
+> cat("SVM parameters:\n")
+SVM parameters:
+
+> cat("  Cost:", BstModel$cost, "\n")
+  Cost: 128 
+
+> cat("  Epsilon:", BstModel$epsilon, "\n")
+  Epsilon: 0.7 
+
+> cat("  Gamma:", BstModel$gamma, "\n\n")
+  Gamma: 1 
+
+
+> cat("=== CONCLUSION ===\n")
+=== CONCLUSION ===
+
+> if (svm_test_rmse < pspline_test_rmse) {
++     cat("SVM provides better point predictions (lower RMSE) than P-splines on this test data.\n")
++ } els .... [TRUNCATED] 
+P-splines provides better point predictions (lower RMSE) than SVM on this test data.
+
+> cat("\nBoth models provide well-calibrated prediction intervals, with coverage probabilities close to the nominal 95% level.\n")
+
+Both models provide well-calibrated prediction intervals, with coverage probabilities close to the nominal 95% level.
+
+> cat("P-splines PICP:", picp_pspline, "\n")
+P-splines PICP: 0.97 
+
+> cat("SVM PICP:", picp_svm, "\n")
+SVM PICP: 0.97 
+
+> sink()

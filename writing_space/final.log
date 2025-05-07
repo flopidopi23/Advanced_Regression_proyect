@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Fedora 40)  (format=lualatex 2025.3.13)  6 MAY 2025 18:25
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Fedora 40)  (format=lualatex 2025.3.13)  7 MAY 2025 13:20
  restricted system commands enabled.
 **final.tex
 (./final.tex
@@ -800,99 +800,75 @@ Package mdframed Info: Not enough space on this page on input line 114.
 
 
 ]
-<psplines_knots_comparison.png, id=93, 722.7pt x 505.89pt>
-File: psplines_knots_comparison.png Graphic file (type png)
-<use psplines_knots_comparison.png>
-Package luatex.def Info: psplines_knots_comparison.png  used on input line 271.
-
+<img1.png, id=97, 722.7pt x 505.89pt>
+File: img1.png Graphic file (type png)
+<use img1.png>
+Package luatex.def Info: img1.png  used on input line 271.
 (luatex.def)             Requested size: 223.62291pt x 156.53094pt.
-<psplines_residuals.png, id=94, 722.7pt x 505.89pt>
-File: psplines_residuals.png Graphic file (type png)
-<use psplines_residuals.png>
-Package luatex.def Info: psplines_residuals.png  used on input line 283.
+<img2.png, id=98, 722.7pt x 505.89pt>
+File: img2.png Graphic file (type png)
+<use img2.png>
+Package luatex.def Info: img2.png  used on input line 285.
 (luatex.def)             Requested size: 111.80931pt x 78.26547pt.
-<psplines_residual_distribution.png, id=95, 722.7pt x 433.62pt>
-File: psplines_residual_distribution.png Graphic file (type png)
-<use psplines_residual_distribution.png>
-Package luatex.def Info: psplines_residual_distribution.png  used on input line
- 284.
+<img3.png, id=99, 722.7pt x 433.62pt>
+File: img3.png Graphic file (type png)
+<use img3.png>
+Package luatex.def Info: img3.png  used on input line 286.
 (luatex.def)             Requested size: 111.80931pt x 67.08469pt.
-
-
-LaTeX Warning: Reference `fig:svr_overlay' on page 2 undefined on input line 29
-5.
-
-
-LaTeX Warning: Reference `tab:svr_rmse' on page 2 undefined on input line 295.
-
-<plot_pred_vs_true_svm_p5.jpg, id=96, 1204.5pt x 803.0pt>
-File: plot_pred_vs_true_svm_p5.jpg Graphic file (type jpg)
-<use plot_pred_vs_true_svm_p5.jpg>
-Package luatex.def Info: plot_pred_vs_true_svm_p5.jpg  used on input line 299.
-(luatex.def)             Requested size: 223.62291pt x 149.07954pt.
-
-LaTeX Warning: Reference `fig:svr_residuals' on page 2 undefined on input line 
-320.
-
-[2
+<img4.png, id=100, 722.7pt x 433.62pt>
+File: img4.png Graphic file (type png)
+<use img4.png>
+Package luatex.def Info: img4.png  used on input line 301.
+(luatex.def)             Requested size: 223.62291pt x 134.16937pt.
+ [2
 warning  (pdf backend): ignoring duplicate destination with the name 'figure.1'
 
 warning  (pdf backend): ignoring duplicate destination with the name 'figure.2'
 
-warning  (pdf backend): ignoring duplicate destination with the name 'figure.3'
-<./psplines_knots_comparison.png><./psplines_residuals.png><./psplines_residual_
-distribution.png><./plot_pred_vs_true_svm_p5.jpg>]
-<plot_residuals_svr.jpg, id=112, 1204.5pt x 803.0pt>
-File: plot_residuals_svr.jpg Graphic file (type jpg)
-<use plot_residuals_svr.jpg>
-Package luatex.def Info: plot_residuals_svr.jpg  used on input line 324.
-(luatex.def)             Requested size: 111.80931pt x 74.53365pt.
-<plot_residuals_hist_svr.jpg, id=113, 1204.5pt x 803.0pt>
-File: plot_residuals_hist_svr.jpg Graphic file (type jpg)
-<use plot_residuals_hist_svr.jpg>
-Package luatex.def Info: plot_residuals_hist_svr.jpg  used on input line 325.
-(luatex.def)             Requested size: 111.80931pt x 74.53365pt.
-
-! Extra alignment tab has been changed to \cr.
-<template> \unskip }\endtemplate 
-                      
-l.341       Model & RMSE & MAE & R-Sq &
-                                      Max. Error \\
-? 
-(./final.bbl) [3
 warning  (pdf backend): ignoring duplicate destination with the name 'table.1'
+<./img1.png><./img2.png><./img3.png>]
+<img5.png, id=119, 722.7pt x 433.62pt>
+File: img5.png Graphic file (type png)
+<use img5.png>
+Package luatex.def Info: img5.png  used on input line 326.
+(luatex.def)             Requested size: 111.80931pt x 67.08469pt.
+<img6.png, id=120, 722.7pt x 433.62pt>
+File: img6.png Graphic file (type png)
+<use img6.png>
+Package luatex.def Info: img6.png  used on input line 327.
+(luatex.def)             Requested size: 111.80931pt x 67.08469pt.
+<img7.png, id=121, 722.7pt x 505.89pt>
+File: img7.png Graphic file (type png)
+<use img7.png>
+Package luatex.def Info: img7.png  used on input line 364.
+(luatex.def)             Requested size: 223.62291pt x 156.53094pt.
+ (./final.bbl) [3
+warning  (pdf backend): ignoring duplicate destination with the name 'figure.3'
 
 warning  (pdf backend): ignoring duplicate destination with the name 'figure.4'
 
 warning  (pdf backend): ignoring duplicate destination with the name 'table.2'
-<./plot_residuals_svr.jpg><./plot_residuals_hist_svr.jpg>] (./final.aux)
 
-LaTeX Warning: There were undefined references.
-
+warning  (pdf backend): ignoring duplicate destination with the name 'figure.5'
+<./img4.png><./img5.png><./img6.png><./img7.png>] (./final.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-
-Package rerunfilecheck Warning: File `final.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `final.out':
-(rerunfilecheck)             Before: 92C42E7596758B0D6F1228809FDC33A1;1539
-(rerunfilecheck)             After:  71F5D486E53EFA74DA0D7E4F68C10862;1539.
+Package rerunfilecheck Info: File `final.out' has not changed.
+(rerunfilecheck)             Checksum: 1BEEC52228B25E3CA02BA2BD94525BBC;1738.
 )
 
 Here is how much of LuaTeX's memory you used:
- 16288 strings out of 478285
+ 16300 strings out of 478285
  195338,1977958 words of node,token memory allocated
  802 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 22 attribute, 98 glue_spec
 , 22 attribute_list, 1 write, 4 pdf_action nodes
-   avail lists: 1:1,2:868,3:514,4:175,5:1387,6:102,7:18719,8:54,9:1025,10:19,11:
-1485
- 35819 multiletter control sequences out of 65536+600000
+   avail lists: 1:2,2:968,3:584,4:175,5:1393,6:102,7:18755,8:54,9:1025,10:20,11:
+1491
+ 35825 multiletter control sequences out of 65536+600000
  76 fonts using 7235679 bytes
- 82i,11n,97p,501b,419s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 82i,11n,97p,493b,419s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></u
 sr/share/texlive/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-italic.
 otf></usr/share/texlive/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-
@@ -905,10 +881,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on final.pdf (3 pages, 1399487 bytes).
+Output written on final.pdf (3 pages, 2549555 bytes).
 
-PDF statistics: 191 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 38 named destinations out of 1000 (max. 131072)
- 89 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 202 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 131072)
+ 97 words of extra memory for PDF output out of 10000 (max. 100000000)
 
